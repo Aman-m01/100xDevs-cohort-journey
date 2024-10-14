@@ -1,5 +1,5 @@
 # Assignments
-## Zerodha CLone 
+## [Zerodha Clone ](./Assignments/Zerodha_clone/)
  ![](./images/zerodha.png)
 </br>
 
