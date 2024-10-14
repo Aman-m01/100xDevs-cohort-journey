@@ -178,4 +178,44 @@ function printSumInPassive(a, b) {
     const sum = calculateSum(a, b);
     console.log(`${sum} is the sum of ${a} and ${b}.`);
 }
-printSumInPassive(5, 10); 
+printSumInPassive(5, 10);
+
+
+// loops, functions and callbacks (revision)
+// Calculate sum from 0 to 100
+let ans = 0
+for (let i = 1; i <= 100; i++) {
+    ans = ans + i;
+}
+console.log(ans)
+
+/*
+>> Function 
+-- A function in javascript is a set of statement that performs a task or calculates a value.
+-- it should takes some input and return an output where there is some obvious relationship between the input and the output.
+ */
+
+function findSum(n) {
+    let ans = 0;
+    for (let i = 0; i <= n; i++) {
+        ans = ans + i;
+    }
+    return ans
+}
+const answer = findSum(100)
+console.log(answer)
+
+// callback functions 
+// find the square of the inputs 
+function square(n) {
+    return n * n
+}
+
+// find the sum of square of the inputs 
+function sumOfSquare(a, b) {
+    const val1 = square(a)
+    const val2 = square(b)
+
+    return val1 + val2;
+}
+console.log(sumOfSquare(4, 5));
