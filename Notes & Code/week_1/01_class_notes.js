@@ -219,3 +219,64 @@ function sumOfSquare(a, b) {
     return val1 + val2;
 }
 console.log(sumOfSquare(4, 5));
+
+
+//week- 1.5 -> Async function vs sync function, js browser architecture, promises , Async await
+/*
+> synchronous --> means things are happens in a sequential manner, only one thing happen a time.
+> Asynchronous --> multiple things are context switching with each other.
+
+> some common async functions 
+- setTimeout  
+- fs.readfile -> To read a file from your file system. 
+- Fetch -> To fetch some data from API endpoint.
+ 
+ */
+//setTimeout
+function findSum(n) {
+    let ans = 0;
+    for (let i = 0; i < n; i++) {
+        ans += i;
+    }
+    return ans;
+}
+function findSumTill100() {
+    return findSum(100);
+}
+setTimeout(findSumTill100, 1000);
+console.log("hello world");
+
+// fs.readFile
+// const fs = require('fs') //filesystem module
+// fs.readFile('a.txt', 'utf-8', (err, data)=>{
+//     console.log(data)
+// } )
+
+/* promises are the syntactical sugar that makes the code slightly more readable. 
+> promise has three state 
+- Pending: The initial state, neither fulfilled nor rejected.
+- Fulfilled: The operation completed successfully, and the promise now holds a value.
+- Rejected: The operation failed, and the promise holds an error.
+
+*/
+const fs = require("fs");
+
+function kiratReadFile() {
+    console.log("inside kiratReadFile");
+    return new Promise(function (resolved) {
+        console.log("Inside Promise");
+        fs.readFile("a.txt", "utf-8", (err, data) => {
+            console.log("Before Resolved");
+            console.log(data);
+        });
+    });
+}
+
+//callback function to call
+function onDone(data) {
+    console.log(data);
+}
+
+var a = kiratReadFile();
+console.log(a);
+a.then(onDone);
