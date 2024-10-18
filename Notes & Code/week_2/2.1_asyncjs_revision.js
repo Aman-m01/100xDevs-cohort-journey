@@ -27,10 +27,10 @@ setTimeout(onDone, 1000);
 console.log("After setTimeout")
 
 // 2. Reading a file 
-const fs = require('fs')
-fs.readFile('notes.txt', 'utf8', (error, data) => {
-    console.log(data)
-})
+// const fs = require('fs')
+// fs.readFile('notes.txt', 'utf8', (error, data) => {
+//     console.log(data)
+// })
 
 /*
  -- promise is a result object that is used to handle asynchronous operations
@@ -63,4 +63,62 @@ promise
  -- Avoid Callback Hell: Promises help prevent deeply nested callbacks, improving the readability and maintainability of code.
 -- Better Error Handling: Promises allow error handling with .catch() at the end of the promise chain, which can handle errors from any step of the chain.
  */
+
+
+// perform file operations 
+/*
+By using require("fs").promises, we're specifically importing the promise-based version of the file system module. This version allows us to use promises or async/await syntax with file system operations, which often leads to more readable and manageable asynchronous code compared to the traditional callback approach.
+*/
+const fs = require("fs").promises
+
+//read content from a file 
+function readFile(filePath) {
+    return fs.readFile(filePath, 'utf8')
+
+        .then((data) => {
+            console.log("file Data:", data)
+        })
+        .catch((err) => {
+            console.log("error: ", err)
+        })
+}
+
+// write content to a file
+function writeFile(filePath, content) {
+    return fs.writeFile(filePath, content, 'utf8')
+        .then(() => {
+            console.log("file written successfully")
+        })
+        .catch((err) => {
+            console.log("error: ", err)
+            throw err;
+        })
+}
+
+//append content to a file
+function appendToFile(filePath, content) {
+    return fs.appendFile(filePath, content, 'utf8')
+        .then(() => [
+            console.log("content append successfully")
+        ])
+        .catch((err) => {
+            console.log("error: ", err)
+            throw err;
+        })
+}
+
+function main() {
+    const filePath = 'notes.txt';
+
+    writeFile(filePath, 'Hello, World!\n')
+        .then(() => readFile(filePath))
+        .then(() => appendToFile(filePath, 'new content added\n'))
+        .then(() => readFile(filePath))
+        .catch(error => {
+            console.error('An error occurred:', error);
+        });
+}
+
+// Run the main function
+main();
 
