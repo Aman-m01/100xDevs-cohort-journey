@@ -54,9 +54,96 @@
 
 */
 
+/* 
+>> Assignment
+Create a website which has two endpoints 
+1. POST/signin which requires body{"username- string, password-string} return a jwt with username encrypted
 
+2. GET/users which takes headers- Authorization headers, returns an array of all users if user is signed in 
+    returns 403 status code if not 
+*/
 
+// in the below code when we do post request on the signin route and put a query to check whether the user is present our database or not, it gives a JWT tokens , we can grab the details by using this .
+// we do a get requests on /users then put the headers 'Authorization' and then the 'jwt tokens', then all the users data available which is save in the memory/db.
 
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const jwtPassword = "123456";
+
+const app = express();
+app.use(express.json())
+
+const ALL_USERS = [
+  {
+    username: "harkirat@gmail.com",
+    password: "123",
+    name: "harkirat singh",
+  },
+  {
+    username: "raman@gmail.com",
+    password: "123321",
+    name: "Raman singh",
+  },
+  {
+    username: "priya@gmail.com",
+    password: "123321",
+    name: "Priya kumari",
+  },
+];
+
+function userExists(username, password) {
+  let userExists = false
+  for(let i = 0 ; i < ALL_USERS.length; i++) {
+   if(ALL_USERS[i].username == username && ALL_USERS[i].password == password)  {
+      userExists = true
+   }
+}
+return userExists;  
+}
+
+app.post("/signin", function (req, res) {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  if (!userExists(username, password)) {
+    return res.status(403).json({
+      msg: "User doesnt exist in our in memory db",
+    });
+  }
+
+  var token = jwt.sign({ username: username }, "shhhhh");
+  return res.json({
+    token,
+  });
+});
+
+app.get("/users", function (req, res) {
+  const token = req.headers.authorization;
+  try {
+    const decoded = jwt.verify(token, jwtPassword);
+    const username = decoded.username;
+    // return a list of users other than this username
+  } catch (err) {
+    return res.status(403).json({
+      msg: "Invalid token",
+    });
+  }
+});
+
+app.listen(3000)
+
+/*
+notes : 
+> Hashing: hashing is one way, here given the output, no one can find the input. A little changing the input can change the output a lot. 
+> Encryption: encryption is two way. a string is encrypted using a password, string can be decrypted using the same password.
+> jsonwebtoken: it neither of encryption or hashing (its technically a digital sign). anyone can see the original output given the signature. signature can be varified using the password.
+> local storage: A place in our browser where we can store some data, usually things that are stored are: >Authentication tokens   >user language preferences     >user interface preferences
+
+>> Database: there are various types of databases.
+      >Graph DBs   >Vector DBs  >SQL DBs   >noSQL DBs
+- MongoDB : it is a noSQL database. mongodb lets you to create databases. in each database, it lets you create tables(collection), in each tables it lets you dumb json data.
+- mongoDB is schemaless, it scale well and a decent choice for most use cases. using mongoose library we can connect to the database. 
+*/
 
 
 
