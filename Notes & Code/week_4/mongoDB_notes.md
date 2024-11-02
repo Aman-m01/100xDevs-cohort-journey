@@ -15,7 +15,7 @@ scalability when working with large amounts of data.
 
 
 ## MongoDB Commands 
-- `mongo` - For starting the mongo shell
+- `mongosh` - For starting the mongo shell
 - `show dbs` - to show all the databases present in the mongoDB 
 - `use db_name` - to create a new database 
 - `db` - to see the current database
