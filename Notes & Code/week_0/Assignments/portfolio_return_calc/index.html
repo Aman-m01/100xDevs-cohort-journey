@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>c.I calculator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="main">
+      <h1>Compound Interest Calculator</h1>
+      <div class="container">
+        <input type="number" id="capital" placeholder="Enter Capital" />
+
+        <input type="number" id="years" placeholder="Enter years" />
+
+        <input type="number" id="interest" placeholder="Enter Interest" />
+      </div>
+      <div class="btn-container">
+        <button onclick="calculateResult()">Calculate</button>
+      </div>
+
+      <div class="result-container">
+        <h3 id="Total-Amount">Total Amount: <span id="TA"></span></h3>
+        <br />
+        <h3 id="interest">Interest: <span id="Interest-data"></span></h3>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
