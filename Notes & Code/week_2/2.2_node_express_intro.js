@@ -81,3 +81,15 @@ app.listen(port, () => {
 });
 
 // note >> we can use body-parser, the body-parser module enables us to parse incoming requests bodies in a middleware.Express.js server needs to know what type of data you are sending over the the network, so it knows how to parse it.
+
+/* how the clients and server works
+Whenever we type google.com in our browser we send request through router and fiber optics cable to the http server 
+present at the ip address which the google.com(domain name). That http server then responds with 
+the html, css and js files stored on the server along with the images and assets which gets rendered on the browser
+and google.com is visible to us. All this communication between our machine and web server in happening through
+http protocol.
+
+- A client taking to the server, this is called request-response model.
+- ajax stands for Asynchronous Javascript and Xml, introduced by browser to let user fetch data asynchronously from the backend an update frontend based on that data, in order to create sub pages on a single web page
+
+*/
