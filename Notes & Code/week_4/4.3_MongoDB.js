@@ -73,5 +73,12 @@ User.deleteOne({
 /*
 >> 3 jargons to know in the database 
 1.Cluster   2.Database  3.Table 
-*/
 
+>> cluster 
+-- A cluster is a collection of one or more servers that work together to provide high availability, scalability, and performance for database operations. In some contexts, particularly with NoSQL databases like MongoDB, a cluster can refer to a group of database servers that store data and handle requests.
+
+>> database 
+-- A database is a structured collection of data that is stored and managed by a database management system (DBMS). It provides a way to organize, store, and retrieve data efficiently.
+
+>> Table: A structured format within a database for storing data, organized into rows and columns
+*/
