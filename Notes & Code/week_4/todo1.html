@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Todo App</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 0 20px;
+      }
+      .todo-container {
+        margin-top: 20px;
+      }
+      .todo-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        margin-bottom: 5px;
+        border-radius: 4px;
+      }
+      .todo-item.done {
+        background-color: #f0f0f0;
+        text-decoration: line-through;
+      }
+      .todo-text {
+        flex-grow: 1;
+      }
+      button {
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+      .input-container {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      #todoInput {
+        flex-grow: 1;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Todo List</h1>
+    <div class="input-container">
+      <input type="text" id="todoInput" placeholder="Enter your todo" />
+      <button onclick="addTodo()">Add Todo</button>
+    </div>
+    <div id="todoList" class="todo-container"></div>
+
+    <script>
+      let todos = [];
+      const todoInput = document.getElementById("todoInput");
+      const todoList = document.getElementById("todoList");
+
+      function addTodo() {
+        const text = todoInput.value.trim();
+        if (text) {
+          todos.push({
+            id: Date.now(),
+            text: text,
+            done: false,
+          });
+          todoInput.value = "";
+          renderTodos();
+        }
+      }
+
+      function deleteTodo(id) {
+        todos = todos.filter((todo) => todo.id !== id);
+        renderTodos();
+      }
+
+      function toggleDone(id) {
+        todos = todos.map((todo) =>
+          todo.id === id ? { ...todo, done: !todo.done } : todo
+        );
+        renderTodos();
+      }
+
+      function editTodo(id) {
+        const todo = todos.find((t) => t.id === id);
+        const newText = prompt("Edit todo:", todo.text);
+        if (newText !== null && newText.trim()) {
+          todos = todos.map((todo) =>
+            todo.id === id ? { ...todo, text: newText.trim() } : todo
+          );
+          renderTodos();
+        }
+      }
+
+      function renderTodos() {
+        todoList.innerHTML = "";
+        todos.forEach((todo) => {
+          const div = document.createElement("div");
+          div.className = `todo-item ${todo.done ? "done" : ""}`;
+          div.innerHTML = `
+                    <span class="todo-text">${todo.text}</span>
+                    <button onclick="editTodo(${todo.id})">Edit</button>
+                    <button onclick="toggleDone(${todo.id})">${
+            todo.done ? "Undo" : "Done"
+          }</button>
+                    <button onclick="deleteTodo(${todo.id})">Delete</button>
+                `;
+          todoList.appendChild(div);
+        });
+      }
+
+      // Handle Enter key in input
+      todoInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          addTodo();
+        }
+      });
+    </script>
+  </body>
+</html>
